@@ -13,9 +13,11 @@ class Pedidos(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["id"], name="unique_pedido_id"),
         ]
+        verbose_name = "Pedido"
+        verbose_name_plural = "Pedidos"
 
 #  def __str__(self):
-#        return self.nome
+#        return self.nome quais retornar?
 
 class Usuario(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
@@ -26,6 +28,8 @@ class Usuario(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["cpf", "id"], name="unique_usuario_cpf_id"),
         ]
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"
 
 
 class Produtos(models.Model):
@@ -39,7 +43,8 @@ class Produtos(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["id"], name="unique_produto_id"),
         ]
-
+        verbose_name = "Produto"
+        verbose_name_plural = "Produtos"
 
 class TiposProdutos(models.Model):
     nome = models.CharField(max_length=100)
@@ -49,12 +54,18 @@ class TiposProdutos(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["id"], name="unique_tipoproduto_id"),
         ]
+        verbose_name = "Tipo de Produto"
+        verbose_name_plural = "Tipos de Produtos"
 
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey("Pedidos", on_delete=models.CASCADE)
     produto = models.ForeignKey("Produtos", on_delete=models.CASCADE)
     quantidade = models.IntegerField(default=1)
+    # preco = models.DecimalField(decimal_places=2, max_digits=10) sugestao copilot
+    # total = models.DecimalField(decimal_places=2, max_digits=10) sugestao copilot
+    verbose_name = "Item Pedido"
+    verbose_name_plural = "Itens Pedido"
 
 
 class TipoPessoa(models.Model):
@@ -64,3 +75,5 @@ class TipoPessoa(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["id"], name="unique_tipopessoa_id"),
         ]
+        verbose_name = "Tipo de Pessoa"
+        verbose_name_plural = "Tipos de Pessoa"
