@@ -14,6 +14,8 @@ class Pedidos(models.Model):
             models.UniqueConstraint(fields=["id"], name="unique_pedido_id"),
         ]
 
+#  def __str__(self):
+#        return self.nome
 
 class Usuario(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
