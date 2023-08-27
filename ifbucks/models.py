@@ -21,7 +21,7 @@ class Pedidos(models.Model):
 
 class Usuario(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
-    tipopessoa = models.ForeignKey("TipoPessoa", on_delete=models.CASCADE)
+    tipopessoa = models.ForeignKey("TipoPessoa", on_delete=models.PROTECT)
     email = models.EmailField(null=True)  # Note: Should be an email field
 
     class Meta:
@@ -59,8 +59,8 @@ class TiposProdutos(models.Model):
 
 
 class ItemPedido(models.Model):
-    pedido = models.ForeignKey("Pedidos", on_delete=models.CASCADE)
-    produto = models.ForeignKey("Produtos", on_delete=models.CASCADE)
+    pedido = models.ForeignKey("Pedidos", on_delete=models.PROTECT)
+    produto = models.ForeignKey("Produtos", on_delete=models.PROTECT)
     quantidade = models.IntegerField(default=1)
     # preco = models.DecimalField(decimal_places=2, max_digits=10) sugestao copilot
     # total = models.DecimalField(decimal_places=2, max_digits=10) sugestao copilot
@@ -77,3 +77,5 @@ class TipoPessoa(models.Model):
         ]
         verbose_name = "Tipo de Pessoa"
         verbose_name_plural = "Tipos de Pessoa"
+
+#usar protect ou cascade?
