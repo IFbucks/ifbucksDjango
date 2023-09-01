@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from .models import itemPedido
-from .models import Pedidos
-from .models import Produtos
+from .models import ItemPedido
+from .models import Pedido
+from .models import Produto
 from .models import Usuario
 from .models import TipoPessoa
-from .models import tipoProduto
+from .models import TipoProduto
 
-admin.site.register(itemPedido)
-admin.site.register(Pedidos)
-admin.site.register(Produtos)
+admin.site.register(ItemPedido)
+admin.site.register(Pedido)
+admin.site.register(Produto)
 admin.site.register(Usuario)
 admin.site.register(TipoPessoa)
-admin.site.register(tipoProduto)
+admin.site.register(TipoProduto)
