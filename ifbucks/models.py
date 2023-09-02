@@ -1,6 +1,5 @@
 from django.db import models
 
-from django.db import models
 
 
 # class Pedidos(models.Model):
@@ -82,6 +81,18 @@ from django.db import models
 
 # refazendo o modelo ------------->
 
+from django.db import models
+
+class Categoria(models.Model):
+    descricao = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.descricao
+
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+
 
 class TipoPessoa(models.Model):
     descricao = models.CharField(max_length=1000)
@@ -124,6 +135,7 @@ class Pedido(models.Model):
 class TipoProduto(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.CharField(max_length=1000)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
@@ -136,7 +148,7 @@ class TipoProduto(models.Model):
 class Produto(models.Model):
     preco = models.DecimalField(decimal_places=2, max_digits=10)
     nome = models.CharField(max_length=250)
-    descricao = models.CharField(max_length=255, default="1000")
+    descricao = models.CharField(max_length=255, default="aa")
     tipoProduto = models.ForeignKey(
         TipoProduto, on_delete=models.SET_NULL, null=True
     )
@@ -150,7 +162,7 @@ class Produto(models.Model):
 
 
 class ItemPedido(models.Model):
-    pedido_id = models.ForeignKey(Pedido, on_delete=models.PROTECT)
+    pedido_id = models.ForeignKey(Pedido, on_delete=models.PROTECT, null=True)
     produto_id = models.ForeignKey(Produto, on_delete=models.PROTECT)
     quantidade = models.IntegerField(default=1)
 
