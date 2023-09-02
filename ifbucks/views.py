@@ -10,6 +10,7 @@ from .serializers import (
     ItemPedidoSerializer,
 )
 
+
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
