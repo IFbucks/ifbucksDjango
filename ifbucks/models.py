@@ -26,6 +26,7 @@ class Usuario(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
     tipopessoa = models.ForeignKey(TipoPessoa, on_delete=models.PROTECT)
     email = models.EmailField(null=True)
+    nome = models.CharField(max_length=255, null=False, blank=False, default="Usuário")
 
     def __str__(self):
         return self.cpf
