@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
-    "pdm add djangorestframework-simplejwt",
+    "rest_framework_simplejwt",
     "ifbucks.apps.IfbucksConfig",
 ]
 
@@ -55,6 +55,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
 
 
 ROOT_URLCONF = "config.urls"
@@ -75,13 +81,6 @@ TEMPLATES = [
     },
 ]
 
-REST_FRAMEWORK = {
-    
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    
-}
 
 WSGI_APPLICATION = "config.wsgi.application"
 

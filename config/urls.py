@@ -10,6 +10,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+
 import os
 from ifbucks.views import (
     CategoriaViewSet,
