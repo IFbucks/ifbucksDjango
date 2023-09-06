@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
+    "pdm add djangorestframework-simplejwt",
     "ifbucks.apps.IfbucksConfig",
 ]
 
@@ -73,6 +74,14 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    
+}
 
 WSGI_APPLICATION = "config.wsgi.application"
 
