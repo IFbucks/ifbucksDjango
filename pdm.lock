@@ -69,6 +69,12 @@ version = "2023.3"
 summary = "World timezone definitions, modern and historical"
 
 [[package]]
+name = "setuptools"
+version = "68.2.2"
+requires_python = ">=3.8"
+summary = "Easily download, build, install, upgrade, and uninstall Python packages"
+
+[[package]]
 name = "sqlparse"
 version = "0.4.4"
 requires_python = ">=3.5"
@@ -87,8 +93,10 @@ requires_python = ">=2"
 summary = "Provider of IANA time zone data"
 
 [metadata]
-lock_version = "4.1"
-content_hash = "sha256:1bd7f4370cb1063ba860e7e29248b710684918999279ed9b8b4921f0a5b9a6b3"
+lock_version = "4.2"
+cross_platform = true
+groups = ["default"]
+content_hash = "sha256:c5981b266990502d4732b4c2be2832178b07d656da6c3217ce27599f62987c32"
 
 [metadata.files]
 "asgiref 3.7.2" = [
@@ -176,6 +184,10 @@ content_hash = "sha256:1bd7f4370cb1063ba860e7e29248b710684918999279ed9b8b4921f0a
 "pytz 2023.3" = [
     {url = "https://files.pythonhosted.org/packages/5e/32/12032aa8c673ee16707a9b6cdda2b09c0089131f35af55d443b6a9c69c1d/pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
     {url = "https://files.pythonhosted.org/packages/7f/99/ad6bd37e748257dd70d6f85d916cafe79c0b0f5e2e95b11f7fbc82bf3110/pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"},
+]
+"setuptools 68.2.2" = [
+    {url = "https://files.pythonhosted.org/packages/bb/26/7945080113158354380a12ce26873dd6c1ebd88d47f5bc24e2c5bb38c16a/setuptools-68.2.2-py3-none-any.whl", hash = "sha256:b454a35605876da60632df1a60f736524eb73cc47bbc9f3f1ef1b644de74fd2a"},
+    {url = "https://files.pythonhosted.org/packages/ef/cc/93f7213b2ab5ed383f98ce8020e632ef256b406b8569606c3f160ed8e1c9/setuptools-68.2.2.tar.gz", hash = "sha256:4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87"},
 ]
 "sqlparse 0.4.4" = [
     {url = "https://files.pythonhosted.org/packages/65/16/10f170ec641ed852611b6c9441b23d10b5702ab5288371feab3d36de2574/sqlparse-0.4.4.tar.gz", hash = "sha256:d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c"},
