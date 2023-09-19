@@ -13,25 +13,28 @@ class Categoria(models.Model):
         verbose_name_plural = "Categorias"
 
 
-class TipoPessoa(models.Model):
-    descricao = models.CharField(max_length=1000)
-
-    def __str__(self):
-        return self.descricao
-
-    class Meta:
-        verbose_name = "Tipo de Pessoa"
-        verbose_name_plural = "Tipos de Pessoa"
+def user_image_upload_to(instance, filename):
+    return f"usuarios/{instance.cpf}/{filename}"
 
 
 class Usuario(models.Model):
+    CLIENTE = "Cliente"
+    GARCOM = "Garçom"
+    COZINHEIRO = "Cozinheiro"
+    GERENTE = "Gerente"
+
+    TIPOS_PESSOAS = (
+        (CLIENTE, "Cliente"),
+        (GARCOM, "Garçom"),
+        (COZINHEIRO, "Cozinheiro"),
+        (GERENTE, "Gerente"),
+    )
+
     cpf = models.CharField(max_length=11, unique=True)
-    tipopessoa = models.ForeignKey(TipoPessoa, on_delete=models.PROTECT)
+    cargo = models.CharField(max_length=255, choices=TIPOS_PESSOAS, default=CLIENTE)
     email = models.EmailField(null=True)
     nome = models.CharField(max_length=255, null=False, blank=False, default="Usuário")
-    imagem = models.ImageField(
-        upload_to="usuarios", blank=True, null=True
-    )  # Novo campo de imagem
+    imagem = models.ImageField(upload_to=user_image_upload_to, blank=True, null=True)
 
     def __str__(self):
         return self.cpf
@@ -46,39 +49,45 @@ class Usuario(models.Model):
         return None
 
 
-class Pedido(models.Model):
-    mesa = models.IntegerField(default=1)
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
-    status = models.BooleanField()
-    hora_pedido = models.TimeField()
+class Mesa(models.Model):
+    numero = models.IntegerField(unique=True)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.mesa} - {self.usuario_id} - {self.status} - {self.hora_pedido}"
+        return f"{self.numero} - {self.status}"
+
+    class Meta:
+        verbose_name = "Mesa"
+        verbose_name_plural = "Mesas"
+
+
+class Pedido(models.Model):
+    mesa = models.ForeignKey(Mesa, on_delete=models.PROTECT, related_name="pedidos")
+    usuario = models.ForeignKey(
+        Usuario, on_delete=models.SET_NULL, null=True, related_name="pedidos"
+    )
+    status = models.BooleanField()
+    hora_pedido = models.DateTimeField(auto_now_add=True)
+    items_pedidos = models.ManyToManyField("Produto", through="ItemPedido")
+
+    def __str__(self):
+        return f"{self.mesa} - {self.usuario} - {self.status} - {self.hora_pedido}"
 
     class Meta:
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"
 
 
-class TipoProduto(models.Model):
-    nome = models.CharField(max_length=100)
-    descricao = models.CharField(max_length=1000)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nome
-
-    class Meta:
-        verbose_name = "Tipo de Produto"
-        verbose_name_plural = "Tipos de Produtos"
+def produto_image_upload_to(instance, filename):
+    return f"usuarios/{instance.categorio}/{filename}"
 
 
 class Produto(models.Model):
     preco = models.DecimalField(decimal_places=2, max_digits=10)
     nome = models.CharField(max_length=250)
-    descricao = models.CharField(max_length=255, default="aa")
+    descricao = models.CharField(max_length=255)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    imagem = models.ImageField(upload_to="produtos", blank=True)
+    imagem = models.ImageField(upload_to=produto_image_upload_to, blank=True)
 
     def __str__(self):
         return self.nome
@@ -94,12 +103,12 @@ class Produto(models.Model):
 
 
 class ItemPedido(models.Model):
-    pedido_id = models.ForeignKey(Pedido, on_delete=models.PROTECT, null=True)
-    produto_id = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    pedido = models.ForeignKey(Pedido, on_delete=models.PROTECT, null=True)
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     quantidade = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.pedido_id} - {self.produto_id} - {self.quantidade}"
+        return f"{self.pedido} - {self.produto} - {self.quantidade}"
 
     class Meta:
         verbose_name = "Item Pedido"

@@ -1,32 +1,23 @@
 from rest_framework import viewsets
-from .models import (
-    Categoria,
-    TipoPessoa,
-    Usuario,
-    Pedido,
-    TipoProduto,
-    Produto,
-    ItemPedido,
-)
+from .models import Categoria, Usuario, Pedido, Produto, ItemPedido, Mesa
 from .serializers import (
     CategoriaSerializer,
-    TipoPessoaSerializer,
     UsuarioSerializer,
     PedidoSerializer,
-    TipoProdutoSerializer,
     ProdutoSerializer,
     ItemPedidoSerializer,
+    MesaSerializer,
 )
+
+
+class MesaViewSet(viewsets.ModelViewSet):
+    queryset = Mesa.objects.all()
+    serializer_class = MesaSerializer
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
-
-
-class TipoPessoaViewSet(viewsets.ModelViewSet):
-    queryset = TipoPessoa.objects.all()
-    serializer_class = TipoPessoaSerializer
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -37,11 +28,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class PedidoViewSet(viewsets.ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
-
-
-class TipoProdutoViewSet(viewsets.ModelViewSet):
-    queryset = TipoProduto.objects.all()
-    serializer_class = TipoProdutoSerializer
 
 
 class ProdutoViewSet(viewsets.ModelViewSet):
