@@ -36,6 +36,10 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=255, null=False, blank=False, default="Usuário")
     imagem = models.ImageField(upload_to=user_image_upload_to, blank=True, null=True)
 
+    pedido = models.OneToOneField(
+        "Pedido", on_delete=models.SET_NULL, null=True, related_name="usuario_pedido"
+    )
+
     def __str__(self):
         return self.cpf
 
@@ -79,7 +83,7 @@ class Pedido(models.Model):
 
 
 def produto_image_upload_to(instance, filename):
-    return f"usuarios/{instance.categorio}/{filename}"
+    return f"usuarios/{instance.categoria}/{filename}"
 
 
 class Produto(models.Model):

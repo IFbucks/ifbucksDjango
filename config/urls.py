@@ -19,19 +19,25 @@ from ifbucks.views import (
     ProdutoViewSet,
     ItemPedidoViewSet,
     MesaViewSet,
+    ListaPedidosMesa,
 )
 
 router = DefaultRouter()
-router.register(r"categorias", CategoriaViewSet)
-router.register(r"usuarios", UsuarioViewSet)
-router.register(r"pedidos", PedidoViewSet)
-router.register(r"produtos", ProdutoViewSet)
-router.register(r"itempedidos", ItemPedidoViewSet)
-router.register(r"mesas", MesaViewSet)
+router.register("categorias", CategoriaViewSet, basename="Categorias")
+router.register("usuarios", UsuarioViewSet, basename="Usuarios")
+router.register("pedidos", PedidoViewSet, basename="Pedidos")
+router.register("produtos", ProdutoViewSet, basename="Produtos")
+router.register("itempedidos", ItemPedidoViewSet, basename="ItemPedidos")
+router.register("mesas", MesaViewSet, basename="Mesas")
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include((router.urls, "api"))),
+    path("", include(router.urls)),
+    path(
+        "pedidosmesa/<int:pk>/pedidos/",
+        ListaPedidosMesa.as_view(),
+    ),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

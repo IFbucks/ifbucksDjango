@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import Categoria, Usuario, Mesa, Pedido, Produto, ItemPedido
 
 
+class ListaPedidosMesaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pedido
+        fields = "__all__"
+
+
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria

@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import Categoria, Usuario, Pedido, Produto, ItemPedido, Mesa
 from .serializers import (
     CategoriaSerializer,
@@ -7,12 +7,21 @@ from .serializers import (
     ProdutoSerializer,
     ItemPedidoSerializer,
     MesaSerializer,
+    ListaPedidosMesaSerializer,
 )
 
 
 class MesaViewSet(viewsets.ModelViewSet):
     queryset = Mesa.objects.all()
     serializer_class = MesaSerializer
+
+
+class ListaPedidosMesa(generics.ListAPIView):
+    def get_queryset(self):
+        queryset = Pedido.objects.filter(mesa=self.kwargs["pk"])
+        return queryset
+
+    serializer_class = ListaPedidosMesaSerializer
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):
