@@ -23,7 +23,7 @@ class Usuario(models.Model):
     COZINHEIRO = "Cozinheiro"
     GERENTE = "Gerente"
 
-    TIPOS_PESSOAS = (
+    CARGO_CHOICES = (
         (CLIENTE, "Cliente"),
         (GARCOM, "Garçom"),
         (COZINHEIRO, "Cozinheiro"),
@@ -31,17 +31,13 @@ class Usuario(models.Model):
     )
 
     cpf = models.CharField(max_length=11, unique=True)
-    cargo = models.CharField(max_length=255, choices=TIPOS_PESSOAS, default=CLIENTE)
+    cargo = models.CharField(max_length=255, choices=CARGO_CHOICES, default=CLIENTE)
     email = models.EmailField(null=True)
     nome = models.CharField(max_length=255, null=False, blank=False, default="Usuário")
-    imagem = models.ImageField(upload_to=user_image_upload_to, blank=True, null=True)
-
-    pedido = models.OneToOneField(
-        "Pedido", on_delete=models.SET_NULL, null=True, related_name="usuario_pedido"
-    )
+    imagem = models.FileField(upload_to=user_image_upload_to, blank=True, null=True)
 
     def __str__(self):
-        return self.cpf
+        return self.nome
 
     class Meta:
         verbose_name = "Usuário"
@@ -55,31 +51,36 @@ class Usuario(models.Model):
 
 class Mesa(models.Model):
     numero = models.IntegerField(unique=True)
-    status = models.BooleanField(default=False)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.numero} - {self.status}"
+        return f"{self.numero} - " + "Ativa" if self.status else "Inativa"
 
     class Meta:
         verbose_name = "Mesa"
         verbose_name_plural = "Mesas"
 
 
-class Pedido(models.Model):
-    mesa = models.ForeignKey(Mesa, on_delete=models.PROTECT, related_name="pedidos")
-    usuario = models.ForeignKey(
-        Usuario, on_delete=models.SET_NULL, null=True, related_name="pedidos"
+class Carrinho(models.Model):
+    mesa = models.ForeignKey(
+        Mesa, on_delete=models.PROTECT, related_name="carrinhos", unique=True
     )
-    status = models.BooleanField()
-    hora_pedido = models.DateTimeField(auto_now_add=True)
-    items_pedidos = models.ManyToManyField("Produto", through="ItemPedido")
+    usuario = models.ForeignKey(
+        Usuario, on_delete=models.SET_NULL, null=True, related_name="carrinhos"
+    )
+    status = models.BooleanField(default=True)
+    items_pedidos = models.ManyToManyField("Produto", through="Pedido")
 
     def __str__(self):
-        return f"{self.mesa} - {self.usuario} - {self.status} - {self.hora_pedido}"
+        return (
+            "Carrinho da mesa " + str(self.mesa.numero) + " - " + "Ativo"
+            if self.status
+            else "Inativo"
+        )
 
     class Meta:
-        verbose_name = "Pedido"
-        verbose_name_plural = "Pedidos"
+        verbose_name = "Carrinho"
+        verbose_name_plural = "Carrinhos"
 
 
 def produto_image_upload_to(instance, filename):
@@ -90,8 +91,10 @@ class Produto(models.Model):
     preco = models.DecimalField(decimal_places=2, max_digits=10)
     nome = models.CharField(max_length=250)
     descricao = models.CharField(max_length=255)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    imagem = models.ImageField(upload_to=produto_image_upload_to, blank=True)
+    categoria = models.ForeignKey(
+        Categoria, on_delete=models.CASCADE, related_name="produtos"
+    )
+    imagem = models.FileField(upload_to=produto_image_upload_to, blank=True)
 
     def __str__(self):
         return self.nome
@@ -106,14 +109,18 @@ class Produto(models.Model):
         return None
 
 
-class ItemPedido(models.Model):
-    pedido = models.ForeignKey(Pedido, on_delete=models.PROTECT, null=True)
-    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+class Pedido(models.Model):
+    carrinho = models.ForeignKey(
+        Carrinho, on_delete=models.PROTECT, null=True, related_name="pedidos"
+    )
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT, null=True)
+    hora_pedido = models.DateTimeField(auto_now_add=True)
     quantidade = models.IntegerField(default=1)
+    entregue = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.pedido} - {self.produto} - {self.quantidade}"
+        return f"{self.carrinho} - {self.produto} - {self.quantidade}"
 
     class Meta:
-        verbose_name = "Item Pedido"
-        verbose_name_plural = "Itens Pedido"
+        verbose_name = "Pedido"
+        verbose_name_plural = "Pedidos"

@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Categoria, ItemPedido, Pedido, Produto, Usuario
+from .models import Categoria, Carrinho, Pedido, Produto, Usuario
 
 admin.site.register(Categoria)
-admin.site.register(ItemPedido)
+admin.site.register(Carrinho)
 admin.site.register(Pedido)
 admin.site.register(Produto)
 admin.site.register(Usuario)

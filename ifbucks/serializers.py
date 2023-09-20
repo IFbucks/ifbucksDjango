@@ -1,11 +1,5 @@
-from rest_framework import serializers
-from .models import Categoria, Usuario, Mesa, Pedido, Produto, ItemPedido
-
-
-class ListaPedidosMesaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pedido
-        fields = "__all__"
+from rest_framework import serializers, generics
+from .models import Categoria, Usuario, Mesa, Pedido, Produto, Carrinho
 
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -26,6 +20,12 @@ class MesaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CarrinhoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Carrinho
+        fields = "__all__"
+
+
 class PedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
@@ -35,10 +35,4 @@ class PedidoSerializer(serializers.ModelSerializer):
 class ProdutoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Produto
-        fields = "__all__"
-
-
-class ItemPedidoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ItemPedido
         fields = "__all__"

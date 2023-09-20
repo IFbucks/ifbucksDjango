@@ -1,27 +1,18 @@
 from rest_framework import viewsets, generics
-from .models import Categoria, Usuario, Pedido, Produto, ItemPedido, Mesa
+from .models import Categoria, Usuario, Pedido, Produto, Carrinho, Mesa
 from .serializers import (
     CategoriaSerializer,
     UsuarioSerializer,
     PedidoSerializer,
     ProdutoSerializer,
-    ItemPedidoSerializer,
+    CarrinhoSerializer,
     MesaSerializer,
-    ListaPedidosMesaSerializer,
 )
 
 
 class MesaViewSet(viewsets.ModelViewSet):
     queryset = Mesa.objects.all()
     serializer_class = MesaSerializer
-
-
-class ListaPedidosMesa(generics.ListAPIView):
-    def get_queryset(self):
-        queryset = Pedido.objects.filter(mesa=self.kwargs["pk"])
-        return queryset
-
-    serializer_class = ListaPedidosMesaSerializer
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):
@@ -44,6 +35,26 @@ class ProdutoViewSet(viewsets.ModelViewSet):
     serializer_class = ProdutoSerializer
 
 
-class ItemPedidoViewSet(viewsets.ModelViewSet):
-    queryset = ItemPedido.objects.all()
-    serializer_class = ItemPedidoSerializer
+class CarrinhoViewSet(viewsets.ModelViewSet):
+    queryset = Carrinho.objects.all()
+    serializer_class = CarrinhoSerializer
+
+
+class PedidosMesa(generics.ListAPIView):
+    """Lista todos os pedidos relacionados a uma mesa"""
+
+    serializer_class = PedidoSerializer
+
+    def get_queryset(self):
+        mesa = self.kwargs["pk"]
+        return Pedido.objects.filter(carrinho__mesa=mesa)
+
+
+class CarrinhoMesa(generics.ListAPIView):
+    """Lista todos o carrinho relacionados a uma mesa"""
+
+    serializer_class = CarrinhoSerializer
+
+    def get_queryset(self):
+        mesa = self.kwargs["pk"]
+        return Carrinho.objects.filter(mesa=mesa)
