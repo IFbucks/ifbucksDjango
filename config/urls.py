@@ -21,6 +21,7 @@ from ifbucks.views import (
     MesaViewSet,
     PedidosMesa,
     CarrinhoMesa,
+    ProdutosCategoria
 )
 
 router = DefaultRouter()
@@ -37,6 +38,11 @@ urlpatterns = [
     path("", include(router.urls)),
     path("mesas/<int:pk>/pedidos/", PedidosMesa.as_view(), name="pedidos-mesa"),
     path("mesas/<int:pk>/carrinho/", CarrinhoMesa.as_view(), name="carrinho-mesa"),
+    path(
+        "categorias/<int:pk>/produtos/",
+        ProdutosCategoria.as_view(),
+        name="produtos-categoria",
+    ),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

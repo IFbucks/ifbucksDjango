@@ -58,3 +58,13 @@ class CarrinhoMesa(generics.ListAPIView):
     def get_queryset(self):
         mesa = self.kwargs["pk"]
         return Carrinho.objects.filter(mesa=mesa)
+
+
+class ProdutosCategoria(generics.ListAPIView):
+    """Lista todos os produtos relacionados a uma categoria"""
+
+    serializer_class = ProdutoSerializer
+
+    def get_queryset(self):
+        categoria = self.kwargs["pk"]
+        return Produto.objects.filter(categoria=categoria)
