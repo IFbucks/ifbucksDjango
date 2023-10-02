@@ -66,5 +66,5 @@ class ProdutosCategoria(generics.ListAPIView):
     serializer_class = ProdutoSerializer
 
     def get_queryset(self):
-        categoria = self.kwargs["pk"]
-        return Produto.objects.filter(categoria=categoria)
+        categoria = self.kwargs["pk"]  # pk é o nome da categoria
+        return Produto.objects.filter(categoria__nome=categoria)

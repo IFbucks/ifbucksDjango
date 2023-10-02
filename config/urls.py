@@ -39,7 +39,7 @@ urlpatterns = [
     path("mesas/<int:pk>/pedidos/", PedidosMesa.as_view(), name="pedidos-mesa"),
     path("mesas/<int:pk>/carrinho/", CarrinhoMesa.as_view(), name="carrinho-mesa"),
     path(
-        "categorias/<int:pk>/produtos/",
+        "categorias/<str:pk>/produtos/",
         ProdutosCategoria.as_view(),
         name="produtos-categoria",
     ),

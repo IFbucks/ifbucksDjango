@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 
 class Categoria(models.Model):
@@ -77,6 +78,19 @@ class Carrinho(models.Model):
             if self.status
             else "Inativo"
         )
+
+    def getTotal(self):
+        total = Decimal("0.00")  # Inicialize o total como zero com precisão decimal
+
+        # Percorra os itens no carrinho (relação através de Pedido)
+        for pedido in self.pedidos.all():
+            # Calcule o preço total do pedido (preço do produto multiplicado pela quantidade)
+            pedido_total = pedido.produto.preco * Decimal(pedido.quantidade)
+            total += pedido_total  # Adicione o total do pedido ao total geral
+
+        return total  # Retorne o total como um objeto Decimal
+
+    total = property(getTotal)
 
     class Meta:
         verbose_name = "Carrinho"
