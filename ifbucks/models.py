@@ -63,8 +63,8 @@ class Mesa(models.Model):
 
 
 class Carrinho(models.Model):
-    mesa = models.ForeignKey(
-        Mesa, on_delete=models.CASCADE, related_name="carrinhos", unique=True
+    mesa = models.OneToOneField(
+        Mesa, on_delete=models.CASCADE, related_name="carrinhos", #unique=True
     )
     usuario = models.ForeignKey(
         Usuario, on_delete=models.SET_NULL, null=True, related_name="carrinhos"
