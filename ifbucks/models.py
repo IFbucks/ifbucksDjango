@@ -1,4 +1,6 @@
 from django.db import models
+
+from django.db.models import F, Sum
 from decimal import Decimal
 
 
@@ -64,7 +66,9 @@ class Mesa(models.Model):
 
 class Carrinho(models.Model):
     mesa = models.OneToOneField(
-        Mesa, on_delete=models.CASCADE, related_name="carrinhos", #unique=True
+        Mesa,
+        on_delete=models.CASCADE,
+        related_name="carrinhos",  # unique=True
     )
     usuario = models.ForeignKey(
         Usuario, on_delete=models.SET_NULL, null=True, related_name="carrinhos"

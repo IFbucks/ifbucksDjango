@@ -21,6 +21,8 @@ class MesaSerializer(serializers.ModelSerializer):
 
 
 class CarrinhoSerializer(serializers.ModelSerializer):
+    total = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+
     class Meta:
         model = Carrinho
         fields = "__all__"
