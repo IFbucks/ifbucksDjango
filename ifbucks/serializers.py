@@ -1,6 +1,8 @@
 from rest_framework import serializers, generics
 from .models import Categoria, Usuario, Mesa, Pedido, Produto, Carrinho
 
+from django.contrib.auth.models import User
+
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:

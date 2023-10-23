@@ -1,4 +1,4 @@
-import os
+# sourceimport os
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
+    TokenVerifyView,
 )
 
 
@@ -21,7 +22,7 @@ from ifbucks.views import (
     MesaViewSet,
     PedidosMesa,
     CarrinhoMesa,
-    ProdutosCategoria
+    ProdutosCategoria,
 )
 
 router = DefaultRouter()
@@ -45,6 +46,7 @@ urlpatterns = [
     ),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token/validate/", TokenVerifyView.as_view(), name="token_verify"),
 ]
 
 if settings.DEBUG:

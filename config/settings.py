@@ -4,6 +4,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+from datetime import timedelta
+
 
 load_dotenv()
 
@@ -34,16 +36,16 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders",
+    "ifbucks.apps.IfbucksConfig",
     "rest_framework",
     "rest_framework_simplejwt",
-    "ifbucks.apps.IfbucksConfig",
 ]
 
 MIDDLEWARE = [
@@ -63,7 +65,11 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
-
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 ROOT_URLCONF = "config.urls"
 
@@ -142,8 +148,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-if MODE in ["PRODUCTION", "MIGRATE"]:
-    MEDIA_URL = "/media/"
-else:
-    MY_IP = os.getenv("MY_IP", "127.0.0.1")
-    MEDIA_URL = f"http://{MY_IP}:19003/media/"
+# if MODE in ["PRODUCTION", "MIGRATE"]:
+#     MEDIA_URL = "/media/"
+# else:
+#     MY_IP = os.getenv("MY_IP", "127.0.0.1")
+#     MEDIA_URL = f"http://{MY_IP}:19003/media/"
