@@ -139,17 +139,14 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+if MODE in ["PRODUCTION", "MIGRATE"]:
+    MEDIA_URL = "/media/"
+else:
+    MY_IP = os.getenv("MY_IP", "127.0.0.1")
+    MEDIA_URL = f"http://{MY_IP}:19003/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# if MODE in ["PRODUCTION", "MIGRATE"]:
-#     MEDIA_URL = "/media/"
-# else:
-#     MY_IP = os.getenv("MY_IP", "127.0.0.1")
-#     MEDIA_URL = f"http://{MY_IP}:19003/media/"
