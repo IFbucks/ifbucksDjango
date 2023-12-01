@@ -1,0 +1,15 @@
+# Django
+SECRET_KEY=django_insecure_#-coloque_a_chave_aqui
+DEBUG=True
+
+MODE=MIGRATE # DEVELOPMENT, PRODUCTION, MIGRATE
+
+# Fl0 Database
+DATABASE_NAME=database-ifbucks
+DATABASE_USER=fl0user
+DATABASE_PASSWORD=m6QD3XySzZEi
+DATABASE_HOST=ep-shy-flower-45614021.us-east-2.aws.neon.fl0.io
+DATABASE_PORT=5432
+
+# Cloudinary
+CLOUDINARY_URL=cloudinary://936288734915361:KzUbcPTUQL3Z9zYYKM_D39OkqJk@djquuehxaMY_IP=191.52.55.204
