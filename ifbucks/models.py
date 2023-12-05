@@ -1,5 +1,5 @@
 from django.db import models
-
+from uploader.models import Image
 from django.db.models import F, Sum
 from decimal import Decimal
 
