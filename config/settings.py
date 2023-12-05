@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "cloudinary_storage",
     "cloudinary",
+    "uploader",
     "ifbucks.apps.IfbucksConfig",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -81,17 +82,6 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": BASE_DIR / "db.sqlite3",
-#    }
-# }
 
 if MODE in ["PRODUCTION", "MIGRATE"]:
     DATABASES = {
@@ -159,6 +149,15 @@ if MODE in ["PRODUCTION", "MIGRATE"]:
 else:
     MY_IP = os.getenv("MY_IP", "127.0.0.1")
     MEDIA_URL = f"http://{MY_IP}:19003/media/"
+
+# App Uploader settings
+#MEDIA_URL = "http://localhost:8000/media/" 
+MEDIA_URL = "https://ifbucks.1.ie-1.fl0.io/media/" 
+MEDIA_ENDPOINT = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+FILE_UPLOAD_PERMISSIONS = 0o640
+
+
 
 
 CORS_ALLOW_ALL_ORIGINS = True
