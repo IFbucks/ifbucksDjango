@@ -1,0 +1,42 @@
+                        List of relations
+ Schema |               Name                |   Type   |  Owner  
+--------+-----------------------------------+----------+---------
+ public | auth_group                        | table    | fl0user
+ public | auth_group_id_seq                 | sequence | fl0user
+ public | auth_group_permissions            | table    | fl0user
+ public | auth_group_permissions_id_seq     | sequence | fl0user
+ public | auth_permission                   | table    | fl0user
+ public | auth_permission_id_seq            | sequence | fl0user
+ public | auth_user                         | table    | fl0user
+ public | auth_user_groups                  | table    | fl0user
+ public | auth_user_groups_id_seq           | sequence | fl0user
+ public | auth_user_id_seq                  | sequence | fl0user
+ public | auth_user_user_permissions        | table    | fl0user
+ public | auth_user_user_permissions_id_seq | sequence | fl0user
+ public | django_admin_log                  | table    | fl0user
+ public | django_admin_log_id_seq           | sequence | fl0user
+ public | django_content_type               | table    | fl0user
+ public | django_content_type_id_seq        | sequence | fl0user
+ public | django_migrations                 | table    | fl0user
+ public | django_migrations_id_seq          | sequence | fl0user
+ public | django_session                    | table    | fl0user
+ public | ifbucks_categoria                 | table    | fl0user
+ public | ifbucks_categoria_id_seq          | sequence | fl0user
+ public | ifbucks_itempedido                | table    | fl0user
+ public | ifbucks_itempedido_id_seq         | sequence | fl0user
+ public | ifbucks_pedido                    | table    | fl0user
+ public | ifbucks_pedido_id_seq             | sequence | fl0user
+ public | ifbucks_produto                   | table    | fl0user
+ public | ifbucks_produto_id_seq            | sequence | fl0user
+ public | ifbucks_tipopessoa                | table    | fl0user
+ public | ifbucks_tipopessoa_id_seq         | sequence | fl0user
+ public | ifbucks_tipoproduto               | table    | fl0user
+ public | ifbucks_tipoproduto_id_seq        | sequence | fl0user
+ public | ifbucks_usuario                   | table    | fl0user
+ public | ifbucks_usuario_id_seq            | sequence | fl0user
+ public | uploader_document                 | table    | fl0user
+ public | uploader_document_id_seq          | sequence | fl0user
+ public | uploader_image                    | table    | fl0user
+ public | uploader_image_id_seq             | sequence | fl0user
+(37 rows)
+
