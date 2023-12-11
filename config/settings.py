@@ -3,7 +3,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
 
-
 load_dotenv()
 
 MODE = os.getenv("MODE")
@@ -21,7 +20,6 @@ CSRF_TRUSTED_ORIGINS = [
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
-
 INSTALLED_APPS = [
     "corsheaders",
     "django.contrib.admin",
@@ -56,11 +54,11 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "AUTH_HEADER_TYPES": ("Bearer",),
-}
+#SIMPLE_JWT = {
+#    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+#    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+#    "AUTH_HEADER_TYPES": ("Bearer",),
+#}
 
 ROOT_URLCONF = "config.urls"
 
@@ -103,10 +101,6 @@ else:
     }
 
 print(MODE, DATABASES)
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
